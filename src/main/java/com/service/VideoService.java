@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class VideoService implements VideoRepository {
+public class VideoService  {
 
     private final VideoRepositoryImpl videoRepository;
 
@@ -20,27 +20,27 @@ public class VideoService implements VideoRepository {
         this.videoRepository = videoRepository;
     }
 
-    @Override
+
     public void saveVideo(Video newVideo) {
         videoRepository.saveVideo(newVideo);
     }
 
-    @Override
+
     public void updateVideo(Video newVideo) {
         videoRepository.updateVideo(newVideo);
     }
 
-    @Override
+
     public void deleteVideoById(Long id) {
         videoRepository.deleteVideoById(id);
     }
 
-    @Override
+
     public List<Video> getVideos() {
         return videoRepository.getVideos();
     }
 
-    @Override
+
     public Video getVideoById(Long id) {
         return videoRepository.getVideoById(id);
     }

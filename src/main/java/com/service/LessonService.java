@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class LessonService implements LessonRepository {
+public class LessonService {
 
     private final LessonRepositoryImpl lessonRepository;
 
@@ -21,27 +21,27 @@ public class LessonService implements LessonRepository {
     }
 
 
-    @Override
+
     public void saveLesson(Lesson lesson) {
         lessonRepository.saveLesson(lesson);
     }
 
-    @Override
+
     public void updateLesson(Lesson lesson) {
         lessonRepository.updateLesson(lesson);
     }
 
-    @Override
+
     public void deleteLesson(Long id) {
         lessonRepository.deleteLesson(id);
     }
 
-    @Override
+
     public List<Lesson> getLessons() {
         return lessonRepository.getLessons();
     }
 
-    @Override
+
     public Lesson getLessonById(Long id) {
         return lessonRepository.getLessonById(id);
     }

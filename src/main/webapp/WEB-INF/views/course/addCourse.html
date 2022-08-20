@@ -13,16 +13,22 @@
       method="post"
       style="text-align:center; margin-top:200px; font-size: 30px;">
     <input type="hidden" name = "id" th:field="${com.model.Course.id}">
-    <input type="text"  name="Course Name" th:field="${com.model.Course.courseName}" placeholder="Course Name">
-    <input type="text"  name="durationOfMonth" th:field="${com.model.Course.duration}" placeholder="Duration">
+    <label>
+        <input type="text"  name="Course Name" th:field="${com.model.Course.courseName}" placeholder="Course Name">
+    </label>
+    <label>
+        <input type="text"  name="durationOfMonth" th:field="${com.model.Course.duration}" placeholder="Duration">
+    </label>
     <br><br>
 
 <!--    I add com and model packages-->
-    <select th:field="${com.model.Course.company}">
-        <option th:each="company:${com.model.Company.courses}"
-                th:value="${company.getId()}"
-                th:text="${company.getCourseName()()}"></option>
-    </select>
+    <label>
+        <select th:field="${com.model.Course.company}">
+            <option th:each="company:${com.model.Company.courses}"
+                    th:value="${company.getId()}"
+                    th:text="${company.getCourseName()()}"></option>
+        </select>
+    </label>
     <input type="submit" value="Add">
 
 </form>

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class InstructorService implements InstructorRepository {
+public class InstructorService {
 
     private final InstructorRepositoryImpl instructorRepository;
 
@@ -20,37 +20,37 @@ public class InstructorService implements InstructorRepository {
         this.instructorRepository = instructorRepository;
     }
 
-    @Override
+
     public void saveInstructor(Instructor instructor) {
         instructorRepository.saveInstructor(instructor);
     }
 
-    @Override
+
     public void updateInstructor(Instructor instructor) {
         instructorRepository.updateInstructor(instructor);
     }
 
-    @Override
+
     public void deleteInstructor(Long id) {
         instructorRepository.deleteInstructor(id);
     }
 
-    @Override
+
     public List<Instructor> getInstructors() {
         return instructorRepository.getInstructors();
     }
 
-    @Override
+
     public Instructor getInstructorById(Long id) {
         return instructorRepository.getInstructorById(id);
     }
 
-    @Override
+
     public void getStudentsCount() {
 
     }
 
-    @Override
+
     public void assignedInstructorToCourse(Long instructorId, Long courseId) {
         instructorRepository.assignedInstructorToCourse(instructorId,courseId);
     }

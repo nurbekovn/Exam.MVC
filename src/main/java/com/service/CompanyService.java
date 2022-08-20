@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CompanyService implements CompanyRepository {
+public class CompanyService  {
 
     private final CompanyRepository companyRepository;
 
@@ -19,27 +19,25 @@ public class CompanyService implements CompanyRepository {
         this.companyRepository = companyRepository;
     }
 
-    @Override
     public void saveCompany(Company company) {
         companyRepository.saveCompany(company);
     }
 
-    @Override
+
     public void updateCompany(Company company) {
         companyRepository.updateCompany(company);
     }
 
-    @Override
     public void deleteCompany(Long id) {
         companyRepository.deleteCompany(id);
     }
 
-    @Override
+
     public List<Company> getAllCompanies() {
         return companyRepository.getAllCompanies();
     }
 
-    @Override
+
     public Company getCompanyById(Long id) {
         return companyRepository.getCompanyById(id);
     }

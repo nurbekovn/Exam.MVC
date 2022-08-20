@@ -10,9 +10,13 @@
       th:object="${company}"
       th:method="patch">
     <div>
-        <input th:field="*{companyName}" ></div>
+        <label>
+            <input th:field="*{companyName}" >
+        </label></div>
     <div>
-        <input th:field="*{locatedCountry}">
+        <label>
+            <input th:field="*{locatedCountry}">
+        </label>
     </div>
     <div>
         <input type="submit" value="update">

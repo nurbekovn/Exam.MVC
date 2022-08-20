@@ -19,27 +19,27 @@ public class StudentService implements StudentRepository {
         this.studentRepository = studentRepository;
     }
 
-    @Override
+
     public void saveStudent(Student student) {
         studentRepository.saveStudent(student);
     }
 
-    @Override
+
     public void updateStudent(Student student) {
         studentRepository.updateStudent(student);
     }
 
-    @Override
+
     public void deleteStudent(Long id) {
         studentRepository.deleteStudent(id);
     }
 
-    @Override
+
     public List<Student> getStudents() {
         return studentRepository.getStudents();
     }
 
-    @Override
+
     public Student getStudentById(Long id) {
         return studentRepository.getStudentById(id);
     }
