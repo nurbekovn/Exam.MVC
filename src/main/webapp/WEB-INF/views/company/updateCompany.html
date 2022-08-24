@@ -3,19 +3,19 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>update</title>
+    <title>Update</title>
 </head>
 <body>
-<form th:action="@{/companies/{id}(id=${company.getId()})}"
+<form th:action="@{/companies/{id}/update (id=${company.getId()})}"
       th:object="${company}"
-      th:method="patch">
+      th:method="PATCH">
     <div>
         <label>
-            <input th:field="*{companyName}" >
+            <input th:field="*{companyName}" placeholder="Company Name">
         </label></div>
     <div>
         <label>
-            <input th:field="*{locatedCountry}">
+            <input th:field="*{locatedCountry}" placeholder="Located Country">
         </label>
     </div>
     <div>

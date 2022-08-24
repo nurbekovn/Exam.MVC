@@ -18,7 +18,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:datasource.properties")
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @ComponentScan(basePackages ="com")
 
 //@ComponentScan("thymeleaf")

@@ -1,46 +1,18 @@
 package com.service;
 
 import com.model.Student;
-import com.repository.StudentRepository;
-import com.repositoryImpl.StudentRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-@Transactional
-public class StudentService implements StudentRepository {
-    private final StudentRepositoryImpl studentRepository;
+public interface StudentService {
 
-    @Autowired
-    public StudentService(StudentRepositoryImpl studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    void saveStudent(Student student, Long id);
 
+    void updateStudent( Student student);
 
-    public void saveStudent(Student student) {
-        studentRepository.saveStudent(student);
-    }
+    void deleteStudent(Long id);
 
+    List<Student> getStudents(Long id);
 
-    public void updateStudent(Student student) {
-        studentRepository.updateStudent(student);
-    }
-
-
-    public void deleteStudent(Long id) {
-        studentRepository.deleteStudent(id);
-    }
-
-
-    public List<Student> getStudents() {
-        return studentRepository.getStudents();
-    }
-
-
-    public Student getStudentById(Long id) {
-        return studentRepository.getStudentById(id);
-    }
+    Student getStudentById(Long id);
 }

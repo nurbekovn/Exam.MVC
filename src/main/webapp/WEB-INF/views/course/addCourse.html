@@ -2,33 +2,37 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>add Course</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 </head>
 <body>
-<form th:action="@{saveCourse}"
-      th:object="${com.model.Course}"
-      method="post"
+<form th:action="@{/courses/{comId}/saveCourse(comId=${companyId})}"
+      th:object="${course}"
+      th:method="POST"
       style="text-align:center; margin-top:200px; font-size: 30px;">
-    <input type="hidden" name = "id" th:field="${com.model.Course.id}">
+    <input type="hidden" name = "id" th:field="*{id}">
+
     <label>
-        <input type="text"  name="Course Name" th:field="${com.model.Course.courseName}" placeholder="Course Name">
+        <input type="text"  name="Course Name" th:field="*{courseName}" placeholder="Course Name">
     </label>
+
     <label>
-        <input type="text"  name="durationOfMonth" th:field="${com.model.Course.duration}" placeholder="Duration">
+        <input type="number"  name="durationOfMonth" th:field="*{duration}" placeholder="Duration">
     </label>
+
+    <label>
+        <input type="text" name="description" th:field="*{description}" placeholder="Description">
+    </label>
+
+    <label>
+        <input type="date"  name="dateOfStart" th:field="*{dateOfStart}" placeholder="Date Of Start">
+    </label>
+
     <br><br>
 
-<!--    I add com and model packages-->
-    <label>
-        <select th:field="${com.model.Course.company}">
-            <option th:each="company:${com.model.Company.courses}"
-                    th:value="${company.getId()}"
-                    th:text="${company.getCourseName()()}"></option>
-        </select>
-    </label>
+
     <input type="submit" value="Add">
 
 </form>

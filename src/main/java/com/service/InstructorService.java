@@ -1,57 +1,22 @@
 package com.service;
 
 import com.model.Instructor;
-import com.repository.InstructorRepository;
-import com.repositoryImpl.InstructorRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-@Transactional
-public class InstructorService {
+public interface InstructorService {
+    void saveInstructor(Long id,Instructor instructor);
 
-    private final InstructorRepositoryImpl instructorRepository;
+    void updateInstructor(Long id, Instructor instructor);
 
-    @Autowired
-    public InstructorService(InstructorRepositoryImpl instructorRepository) {
-        this.instructorRepository = instructorRepository;
-    }
+    void deleteInstructor(Long id);
 
+    List<Instructor> getAllInstructors(Long id);
 
-    public void saveInstructor(Instructor instructor) {
-        instructorRepository.saveInstructor(instructor);
-    }
+    Instructor getInstructorById(Long id);
+    List<Instructor> getInstructorsByCourseId(Long id);
 
+    void getStudentsCount();
 
-    public void updateInstructor(Instructor instructor) {
-        instructorRepository.updateInstructor(instructor);
-    }
-
-
-    public void deleteInstructor(Long id) {
-        instructorRepository.deleteInstructor(id);
-    }
-
-
-    public List<Instructor> getInstructors() {
-        return instructorRepository.getInstructors();
-    }
-
-
-    public Instructor getInstructorById(Long id) {
-        return instructorRepository.getInstructorById(id);
-    }
-
-
-    public void getStudentsCount() {
-
-    }
-
-
-    public void assignedInstructorToCourse(Long instructorId, Long courseId) {
-        instructorRepository.assignedInstructorToCourse(instructorId,courseId);
-    }
+    void assignedInstructorToCourse(Long instructorId, Long courseId);
 }

@@ -5,28 +5,11 @@
     <meta charset="UTF-8">
     <title>Companies</title>
     <style>table,
-    td {
-        border: 1px solid #333;
-        margin-top: 200px;
-        margin-left: auto;
-        margin-right: auto;
-        font-size: 25px;
-    }
+    td {border: 1px solid #333;margin-top: 200px;margin-left: auto;margin-right: auto;font-size: 25px;}
+    thead, tfoot {background-color: #337dab;color: #344712;}</style><style>
+        table, th, td {border: 1px solid #1e1818; padding: 3px;} </style></head><body>
 
-    thead,
-    tfoot {
-        background-color: #e8e5e5;
-        color: #344712;
-    }
-    </style>
-    <style>
-        table, th, td {
-            border: 1px solid #1e1818;
-            padding: 3px;
-        }
-    </style>
-</head>
-<body>
+
 <table class="table table-bordered ">
     <thead class="table-dark">
     <tr>
@@ -38,20 +21,29 @@
     </tr>
     </thead>
     <tbody class="table-success">
-    <tr th:each="company : ${company}">
-        <td th:text="${company.id}"></td>
+    <tr th:each="company:${companies}">
+        <td th:text="${company.getId()}"></td>
         <td th:text="${company.companyName}"></td>
         <td th:text="${company.locatedCountry}"></td>
 
-        <td><a th:href="@{/companies/{id}/updateCompany(id=${company.id})}">
-            <button style="height: 40px; width: 80px; background-color:blue;">update</button>
+        <td><a th:href="@{/companies/edit/{id}(id=${company.getId()})}">
+            <button style="height: 40px; width: 80px; background-color:blue;">Update</button>
         </a>
         </td>
-        <td><form th:method="DELETE" th:action="@{/companies/{id}(id=${company.getId()})}">
-            <input type="submit" value="delete" style="height: 40px; width: 80px; background-color:darkorange;"/></form></td>
+        <td>
+
+            <form th:method="DELETE" th:action="@{/companies/{id}(id=${company.getId()})}">
+                <input type="submit" value="Delete" style="height: 40px; width: 80px; background-color:darkorange;"/>
+            </form>
+        </td>
+        <td><a th:href="@{/courses/courses/{id}(id=${company.id})}">
+            <button style="height: 40px; width: 90px; background-color:paleturquoise;">Info</button>
+        </a>
+        </td>
     </tr>
     </tbody>
 </table>
+
 <br><br><br><br>
 <input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add company"
        onclick="window.location.href = 'companies/addCompany'">

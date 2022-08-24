@@ -6,9 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class CompanyRepositoryImpl implements CompanyRepository {
 
     @PersistenceContext
@@ -25,7 +27,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 //        company1.setCompanyName(company.getCompanyName());
 //        company1.setLocatedCountry(company.getLocatedCountry());
 
-        entityManager.merge(Company.class);
+        entityManager.merge(company);
 
     }
 
@@ -44,7 +46,9 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     @Override
     public Company getCompanyById(Long id) {
         return entityManager.createQuery("select c from Company c where " +
-                "c.id =: id",Company.class).setParameter("" +
-                "id", id).getSingleResult();
+                "c.id =: id",Company.class).setParameter("id",id).getSingleResult();
+
+//        return entityManager.find(Company.class,id);
+
     }
 }

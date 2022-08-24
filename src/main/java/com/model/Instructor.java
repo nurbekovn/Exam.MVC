@@ -8,8 +8,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.DETACH;
+
 @Entity
-@Table(name = "getInstructors")
+@Table(name = "instructors")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,15 +30,26 @@ public class Instructor {
     private String email;
     private String specialization;
 
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
-    @JoinTable
+    @ManyToMany(cascade = {MERGE, PERSIST, DETACH, REFRESH})
     private List<Course> courses;
+
+    @ManyToOne(cascade = {MERGE, PERSIST, DETACH, REFRESH})
+    private Company company;
+
 
     public void addCourse(Course course) {
         if (courses == null) {
             courses = new ArrayList<>();
         }
         courses.add(course);
+    }
+
+    public Instructor(String firstName, String lastName, int phoneNumber, String email, String specialization) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.specialization = specialization;
     }
 
     //IV - Бир инструктор бир канча курска сабак ото алат

@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "companies")
@@ -25,11 +28,33 @@ public class Company {
     @Column(name = "located_country")
     private String locatedCountry;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="company")
+    public void addCourse(Course newCourse) {
+        if (courses == null){
+            courses = new ArrayList<>();
+        }
+        courses.add(newCourse);
+    }
+
+    @OneToMany(cascade = ALL, mappedBy ="company")
     private List<Course> courses;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="company")
+    @OneToMany(cascade = ALL,mappedBy = "company")
     private List<Student> students;
+
+    @OneToMany(cascade = {MERGE,PERSIST,DETACH,REFRESH},mappedBy = "company")
+    private List<Instructor> instructors;
+
+    public Company(String companyName, String locatedCountry) {
+        this.companyName = companyName;
+        this.locatedCountry = locatedCountry;
+    }
+
+    public void addInstructor(Instructor instructor) {
+        if (instructors == null) {
+            instructors=new ArrayList<>();
+        }
+        instructors.add(instructor);
+    }
 
 
     @Override

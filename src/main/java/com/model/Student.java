@@ -7,8 +7,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
-@Table(name = "getStudents")
+@Table(name = "students")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,14 +28,25 @@ public class Student {
     private String email;
     private Study studyFormat;
 
-//III - Студенттер бир гана курс ала алат
-
-    @ManyToOne
-    @JoinColumn(name = "company_id")
+    @ManyToOne(cascade = {PERSIST,MERGE,REFRESH,DETACH})
     private Company company;
 
-    @ManyToOne
+
+//    @ManyToOne(cascade = {MERGE,PERSIST,REFRESH,DETACH})
+//    @JoinColumn(name = "company_id")
+//    private Company company;
+
+
+    @ManyToOne(cascade = {PERSIST,MERGE,REFRESH,DETACH})
     private Course course;
+
+    public Student(String firstName, String lastName, int phoneNumber, String email, Study studyFormat) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.studyFormat = studyFormat;
+    }
 
     @Override
     public String toString() {

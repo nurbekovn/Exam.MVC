@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "getTasks")
+@Table(name = "tasks")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,9 +25,17 @@ public class Task {
 
     //VI - Тапшырма бир гана сабака тиешелуу болот
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,
+            CascadeType.DETACH})
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
+
+    public Task(String taskName, String taskText, LocalDate deadline, Lesson lesson) {
+        this.taskName = taskName;
+        this.taskText = taskText;
+        this.deadline = deadline;
+        this.lesson = lesson;
+    }
 
     @Override
     public String toString() {

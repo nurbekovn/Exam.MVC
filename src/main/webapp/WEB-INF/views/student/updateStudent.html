@@ -7,35 +7,34 @@
 </head>
 <body>
 
-<!--action="@{/courses/{comId}/saveCourse(comId=${companyId})}"-->
-
-<form th:action="@{/courses/{id}/{courseId}/update (id=${companyId},courseId=${course.id})}"
-      th:object="${course}"
+<form th:action="@{/courses/{id}/update (id=${course.getId()})}"
+      th:object="${student}"
       th:method="PATCH">
     <div>
         <label>
-            <input th:field="*{courseName}" placeholder="Course Name">
+            <input th:field="*{firstName}" placeholder="Student Name">
         </label></div>
     <div>
         <label>
-            <input th:field="*{duration}" placeholder="Duration">
+            <input th:field="*{lastName}" placeholder="Last Name">
         </label>
     </div>
 
     <div>
         <label>
-            <input th:field="*{description}" placeholder="Description">
+            <input th:field="*{email}" placeholder="Email">
         </label>
     </div>
     <div>
         <label>
-            <input th:field="*{image}" placeholder="Image">
+            <input th:field="*{phoneNumber}" placeholder="Phone number">
         </label>
     </div>
 
     <div>
         <input type="submit" value="update">
     </div>
+
 </form>
 </body>
 </html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Companies</title>
+    <style>table,
+    td {
+        border: 1px solid #333;
+        margin-top: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+
+    thead,
+    tfoot {
+        background-color: #e8e5e5;
+        color: #344712;
+    }
+    </style>
+    <style>
+        table, th, td {
+            border: 1px solid #1e1818;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<table class="table table-bordered ">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Lesson name</th>
+        <th scope="col"></th>
+
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <!--    //changed , foreach -->
+    <tr th:each="lesson:${lessons}">
+        <td th:text="${lesson.id}"></td>
+        <td th:text="${lessson.courseName}"></td>
+        <td th:text="${lessson.duration}"></td>
+        <td th:text="${lessson.description}"></td>
+        <td th:text="${lessson.dateOfStart}"></td>
+        <!--//<a th:href="@{/courses/{id}/updateCourse(id=${course.getId()})}">update</a>-->
+
+        <td><a th:href="@{/lessons/edit/{id}(id=${lesson.getId()})}">
+            <button style="height: 40px; width: 80px; background-color:blue;">Update</button>
+        </a>
+        </td>
+        <td><form th:method="DELETE" th:action="@{/courses/{id}/{compId}(id=${course.getId()},compId=${companyId})}">
+            <input type="submit" value="Delete" style="height: 40px; width: 80px; background-color:darkorange;"/></form></td>
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+
+
+
+<div style="text-align: center">
+    <a th:href="@{/courses/{id}/addCourse(id=${companyId})}">
+        <button style="font-size: 30px;"> Add Course </button> </a>
+</div>
+
+
+<td><a th:href="@{/courses/courses/{id}(id=${course.id})}">
+    <button style="height: 40px; width: 90px; background-color:paleturquoise;">Instructors</button>
+</a>
+</td>
+
+
+<!--<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add Course"-->
+<!--       onclick="window.location.href = 'getAllCourses/addCourse'">-->
+
+</body>
+</html>

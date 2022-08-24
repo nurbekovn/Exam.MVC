@@ -5,9 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
-@Table(name = "getLessons")
+@Table(name = "lessons")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,12 +25,23 @@ public class Lesson {
     private String lessonName;
 //V - Сабака бир канча тапшырма жана бир видео жуктосо болот
 
-    @OneToOne
+    @OneToOne(cascade = ALL,mappedBy = "lesson")
     private Video video;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
+    @ManyToOne(cascade = {PERSIST,MERGE,DETACH,REFRESH})
     private Course course;
+
+    @OneToMany(cascade = ALL,mappedBy = "lesson",fetch = FetchType.EAGER)
+    private List<Task> tasks;
+
+
+    public void addTask(Task task) {
+        if (tasks==null) {
+            tasks=new ArrayList<>();
+        } else {
+            this.tasks.add(task);
+        }
+    }
 
     @Override
     public String toString() {
