@@ -3,6 +3,7 @@ package com.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,13 +22,14 @@ public class Task {
     private String taskName;
     @Column(name = "task_text",length = 20000)
     private String taskText;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate deadline;
 
     //VI - Тапшырма бир гана сабака тиешелуу болот
 
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,
             CascadeType.DETACH})
-    @JoinColumn(name = "lesson_id")
     private Lesson lesson;
 
     public Task(String taskName, String taskText, LocalDate deadline, Lesson lesson) {
@@ -36,6 +38,8 @@ public class Task {
         this.deadline = deadline;
         this.lesson = lesson;
     }
+
+
 
     @Override
     public String toString() {

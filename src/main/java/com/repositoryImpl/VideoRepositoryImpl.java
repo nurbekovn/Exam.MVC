@@ -1,5 +1,6 @@
 package com.repositoryImpl;
 
+import com.model.Lesson;
 import com.model.Video;
 import com.repository.VideoRepository;
 import org.springframework.stereotype.Repository;
@@ -17,28 +18,38 @@ public class VideoRepositoryImpl implements VideoRepository {
     private EntityManager entityManager;
 
     @Override
-    public void saveVideo(Video newVideo) {
-        entityManager.persist(newVideo);
+    public void saveVideo(Video newVideo, Long lessonId) {
+        Lesson lesson = entityManager.find(Lesson.class, lessonId);
+        lesson.addVideo(newVideo);
+        newVideo.setLesson(lesson);
+        entityManager.merge(newVideo);
     }
 
     @Override
-    public void updateVideo(Video newVideo) {
-        entityManager.merge(Video.class);
+    public void updateVideo(Long id, Video newVideo) {
+        Video video = entityManager.find(Video.class, id);
+        video.setVideoName(newVideo.getVideoName());
+        video.setLink(newVideo.getLink());
+        entityManager.merge(video);
     }
 
     @Override
     public void deleteVideoById(Long id) {
-        entityManager.remove(entityManager.find(Video.class,id));
+        Video video = entityManager.find(Video.class, id);
+        video.setLesson(null);
+        entityManager.remove(video);
+
     }
 
     @Override
-    public List<Video> getVideos() {
-        return entityManager.createQuery("select v from Video v",
-                Video.class).getResultList();
+    public List<Video> getVideos(Long id) {
+        return entityManager.createQuery("select v from Video v " +
+                        "where v.lesson.id = : id",
+                Video.class).setParameter("id", id).getResultList();
     }
 
     @Override
     public Video getVideoById(Long id) {
-        return entityManager.find(Video.class,id);
+        return entityManager.find(Video.class, id);
     }
 }

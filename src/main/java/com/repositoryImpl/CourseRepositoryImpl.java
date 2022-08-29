@@ -25,6 +25,7 @@ public class CourseRepositoryImpl implements CourseRepository {
         entityManager.merge(course);
     }
 
+
     @Override
     public void updateCourse(Long id, Course course) {
         Course course1 = entityManager.find(Course.class, id);
@@ -43,9 +44,10 @@ public class CourseRepositoryImpl implements CourseRepository {
         }
         course.setCompany(null);
 
-//        entityManager.remove(entityManager.find(Course.class, id));
         entityManager.remove(course);
     }
+
+
 
     @Override
     public List<Course> courses(Long companyId) {

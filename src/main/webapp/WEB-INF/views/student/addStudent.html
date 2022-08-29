@@ -8,36 +8,36 @@
 
 </head>
 <body>
-<form th:action="@{/saveStudent/(courseId=${courseId})}"
+<form th:action="@{saveStudent}"
       th:object="${student}"
       th:method="POST"
       style="text-align:center; margin-top:200px; font-size: 30px;">
+
     <input type="hidden" name = "id" th:field="*{id}">
 
     <label>
-        <input type="text"  name="Student Name" th:field="*{firstName}" placeholder="Course Name">
+        <input type="text"  name="Student Name" th:field="*{firstName}" placeholder="Student Name">
     </label>
 
     <label>
-        <input type="number"  name="lastName" th:field="*{lastName}" placeholder="Duration">
+        <input type="text"  name="lastName" th:field="*{lastName}" placeholder="Last Name">
     </label>
 
     <label>
-        <input type="text" name="phone number" th:field="*{phoneNumber}" placeholder="PhoneNumber">
+        <input type="text" name="phone number" th:field="*{phoneNumber}" placeholder="Phone Number">
     </label>
 
     <label>
-        <input type="date"  name="email" th:field="*{email}" placeholder="Date Of Start">
+        <input type="text"  name="email" th:field="*{email}" placeholder="Email">
     </label>
 
     <label>
-        <input type="date"  name="studyFormat" th:field="*{studyFormat}" placeholder="Date Of Start">
+        <input type="text"  name="studyFormat" th:field="*{studyFormat}" placeholder="Study Format">
     </label>
 
     <br><br>
 
-
-    <input type="submit" value="Add ">
+    <input type="submit" value="Add Student">
 
 </form>
 

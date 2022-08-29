@@ -31,7 +31,9 @@ public class Instructor {
     private String specialization;
 
     @ManyToMany(cascade = {MERGE, PERSIST, DETACH, REFRESH})
+    @JoinTable
     private List<Course> courses;
+
 
     @ManyToOne(cascade = {MERGE, PERSIST, DETACH, REFRESH})
     private Company company;
@@ -44,6 +46,7 @@ public class Instructor {
         courses.add(course);
     }
 
+
     public Instructor(String firstName, String lastName, int phoneNumber, String email, String specialization) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,17 +55,4 @@ public class Instructor {
         this.specialization = specialization;
     }
 
-    //IV - Бир инструктор бир канча курска сабак ото алат
-
-    @Override
-    public String toString() {
-        return "Instructor{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", email='" + email + '\'' +
-                ", specialization='" + specialization + '\'' +
-                '}';
-    }
 }

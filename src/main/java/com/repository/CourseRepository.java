@@ -11,6 +11,5 @@ public interface CourseRepository {
     void deleteCourse(Long id);
     List<Course> courses(Long companyId);
     Course getCourseById(Long id);
-
     List<Course> getCourses();
 }

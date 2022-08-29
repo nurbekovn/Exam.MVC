@@ -5,7 +5,6 @@ import com.repository.TaskRepository;
 import com.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -22,13 +21,13 @@ public class TaskServiceImpl implements TaskService {
 
 
     @Override
-    public void saveTask(Task task) {
-        taskRepository.saveTask(task);
+    public void saveTask(Task task, Long id) {
+        taskRepository.saveTask(task,id );
     }
 
     @Override
-    public void updateTask(Task task) {
-        taskRepository.updateTask(task);
+    public void updateTask(Long id, Task task) {
+        taskRepository.updateTask(id, task);
     }
 
     @Override
@@ -37,8 +36,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getTasks() {
-        return taskRepository.getTasks();
+    public List<Task> getTasks(Long id) {
+        return taskRepository.getTasks(id);
     }
 
     @Override

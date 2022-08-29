@@ -26,8 +26,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void updateStudent(Student student) {
-        studentRepository.updateStudent(student);
+    public void updateStudent(Long id ,Student student) {
+        studentRepository.updateStudent(id, student);
     }
 
     @Override
@@ -43,5 +43,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudentById(Long id) {
         return studentRepository.getStudentById(id);
+    }
+
+    @Override
+    public void assignStudentToCourse(Long studentId, Long courseId) {
+        studentRepository.assignStudentToCourse(studentId,courseId);
+    }
+
+    @Override
+    public List<Student> countOfStudents(Long id) {
+        return studentRepository.countOfStudents(id);
     }
 }

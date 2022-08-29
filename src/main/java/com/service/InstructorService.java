@@ -14,7 +14,7 @@ public interface InstructorService {
     List<Instructor> getAllInstructors(Long id);
 
     Instructor getInstructorById(Long id);
-    List<Instructor> getInstructorsByCourseId(Long id);
+    List<Instructor> getInstructorsByCompanyId(Long id);
 
     void getStudentsCount();
 

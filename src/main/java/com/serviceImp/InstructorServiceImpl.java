@@ -46,8 +46,8 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public List<Instructor> getInstructorsByCourseId(Long id) {
-        return null;
+    public List<Instructor> getInstructorsByCompanyId(Long id) {
+        return instructorRepository.getInstructorsByCompany(id);
     }
 
     @Override

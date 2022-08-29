@@ -19,11 +19,11 @@ public class InstructorRepositoryImpl implements InstructorRepository {
 
 
     @Override
-    public void saveInstructor(Long id, Instructor instructor) {
-        Company company = entityManager.find(Company.class, id);
+    public void saveInstructor(Long companyId, Instructor instructor) {
+        Company company = entityManager.find(Company.class, companyId);
         company.addInstructor(instructor);
         instructor.setCompany(company);
-        entityManager.merge(company);
+        entityManager.merge(instructor);
         // merge(company)
 
     }
@@ -37,11 +37,20 @@ public class InstructorRepositoryImpl implements InstructorRepository {
         entityManager.merge(instructor1);
     }
 
+
     @Override
-    public List<Instructor> getInstructorsByCourseId(Long id) {
+    public List<Instructor> getInstructorsByCompanyId(Long id) {
         return entityManager.createQuery("select c from Instructor c where c.company.id=:id",Instructor.class)
                 .setParameter("id",id).getResultList();
     }
+
+    @Override
+    public List<Instructor> getInstructorsByCompany(Long id) {
+        return entityManager.createQuery("select i from Instructor i where i.company.id = :id",Instructor.class)
+                .setParameter("id",id)
+                .getResultList();
+    }
+
 
     @Override
     public void deleteInstructor(Long id) {
@@ -49,15 +58,17 @@ public class InstructorRepositoryImpl implements InstructorRepository {
         for (Course c :instructor.getCourses()) {
             c.setInstructors(null);
         }
-//        entityManager.remove(entityManager.find(Instructor.class,id));
         entityManager.remove(instructor);
+//        entityManager.remove(entityManager.find(Instructor.class,id));
     }
+
 
     @Override
     public List<Instructor> getInstructors() {
         return entityManager.createQuery("select i from Instructor i",
                 Instructor.class).getResultList();
     }
+
 
     @Override
     public Instructor getInstructorById(Long id) {
@@ -72,7 +83,6 @@ public class InstructorRepositoryImpl implements InstructorRepository {
         instructor.addCourse(course);
         course.addInstructor(instructor);
         entityManager.merge(instructor);
-        entityManager.merge(course);
     }
 
     @Override

@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface InstructorRepository {
 
-    void saveInstructor(Long id,Instructor instructor);
+    void saveInstructor(Long companyId, Instructor instructor);
 
     void updateInstructor(Long id, Instructor instructor);
-    List<Instructor> getInstructorsByCourseId(Long id);
+    List<Instructor> getInstructorsByCompanyId(Long id);
+    List<Instructor> getInstructorsByCompany(Long id);
 
     void deleteInstructor(Long id);
 

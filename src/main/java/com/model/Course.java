@@ -71,6 +71,7 @@ public class Course {
         }
     }
 
+
     public Course(String courseName, int duration, String image, String description) {
         this.courseName = courseName;
         this.duration = duration;

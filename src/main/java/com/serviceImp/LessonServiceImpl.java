@@ -5,7 +5,6 @@ import com.repository.LessonRepository;
 import com.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -22,13 +21,13 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public void saveLesson(Lesson lesson) {
-        lessonRepository.saveLesson(lesson);
+    public void saveLesson(Long courseId, Lesson lesson) {
+        lessonRepository.saveLesson(courseId,lesson);
     }
 
     @Override
-    public void updateLesson(Lesson lesson) {
-        lessonRepository.updateLesson(lesson);
+    public void updateLesson(Long id,Lesson lesson) {
+        lessonRepository.updateLesson(id, lesson);
     }
 
     @Override
@@ -37,8 +36,8 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public List<Lesson> getLessons() {
-        return lessonRepository.getLessons();
+    public List<Lesson> getLessons(Long id) {
+        return lessonRepository.getLessons(id);
     }
 
     @Override

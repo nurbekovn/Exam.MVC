@@ -41,7 +41,7 @@ public class Company {
     @OneToMany(cascade = ALL,mappedBy = "company")
     private List<Student> students;
 
-    @OneToMany(cascade = {MERGE,PERSIST,DETACH,REFRESH},mappedBy = "company")
+    @OneToMany(cascade = ALL,mappedBy = "company")
     private List<Instructor> instructors;
 
     public Company(String companyName, String locatedCountry) {
@@ -54,6 +54,13 @@ public class Company {
             instructors=new ArrayList<>();
         }
         instructors.add(instructor);
+    }
+
+    public void addStudent(Student student) {
+        if (students == null) {
+            students = new ArrayList<>();
+        }
+        this.students.add(student);
     }
 
 

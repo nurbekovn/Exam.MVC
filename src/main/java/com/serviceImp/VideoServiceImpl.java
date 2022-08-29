@@ -5,7 +5,6 @@ import com.repository.VideoRepository;
 import com.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -22,13 +21,13 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public void saveVideo(Video newVideo) {
-        videoRepository.saveVideo(newVideo);
+    public void saveVideo(Video newVideo, Long lessonId) {
+        videoRepository.saveVideo(newVideo,lessonId );
     }
 
     @Override
-    public void updateVideo(Video newVideo) {
-        videoRepository.updateVideo(newVideo);
+    public void updateVideo(Long id, Video newVideo) {
+        videoRepository.updateVideo(id, newVideo);
     }
 
     @Override
@@ -37,8 +36,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<Video> getVideos() {
-        return videoRepository.getVideos();
+    public List<Video> getVideos(Long id) {
+        return videoRepository.getVideos(id);
     }
 
     @Override

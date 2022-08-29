@@ -3,11 +3,11 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update</title>
+    <title>Update Course</title>
 </head>
 <body>
 
-<!--action="@{/courses/{comId}/saveCourse(comId=${companyId})}"-->
+
 
 <form th:action="@{/courses/{id}/{courseId}/update (id=${companyId},courseId=${course.id})}"
       th:object="${course}"
@@ -27,6 +27,9 @@
             <input th:field="*{description}" placeholder="Description">
         </label>
     </div>
+    <label>
+        <input type="date"  name="dateOfStart" th:field="*{dateOfStart}" placeholder="Date Of Start">
+    </label>
     <div>
         <label>
             <input th:field="*{image}" placeholder="Image">

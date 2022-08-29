@@ -26,15 +26,14 @@ public class Student {
     @Column(name = "phone_number")
     private int phoneNumber;
     private String email;
+
+//    @Enumerated(value = EnumType.STRING)
+    @Column(name = "study_format")
     private Study studyFormat;
+
 
     @ManyToOne(cascade = {PERSIST,MERGE,REFRESH,DETACH})
     private Company company;
-
-
-//    @ManyToOne(cascade = {MERGE,PERSIST,REFRESH,DETACH})
-//    @JoinColumn(name = "company_id")
-//    private Company company;
 
 
     @ManyToOne(cascade = {PERSIST,MERGE,REFRESH,DETACH})
@@ -48,14 +47,5 @@ public class Student {
         this.studyFormat = studyFormat;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", email='" + email + '\'' +
-                '}';
-    }
+
 }

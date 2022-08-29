@@ -7,27 +7,34 @@
 </head>
 <body>
 
-<form th:action="@{/courses/{id}/update (id=${course.getId()})}"
+<form th:action="@{/students/{companyId}/{id}/updateStudent (companyId=${companyId},id=${student.getId()})}"
       th:object="${student}"
-      th:method="PATCH">
+      th:method="POST">
     <div>
         <label>
             <input th:field="*{firstName}" placeholder="Student Name">
         </label></div>
     <div>
         <label>
-            <input th:field="*{lastName}" placeholder="Last Name">
+            <input  th:field="*{lastName}" placeholder="Last Name">
         </label>
     </div>
 
     <div>
         <label>
-            <input th:field="*{email}" placeholder="Email">
+            <input th:field="*{phoneNumber}" placeholder="Phone number">
         </label>
     </div>
+
     <div>
         <label>
-            <input th:field="*{phoneNumber}" placeholder="Phone number">
+            <input  th:field="*{email}" placeholder="Email">
+        </label>
+    </div>
+
+    <div>
+        <label>
+            <input  th:field="*{studyFormat}" placeholder="Study Format">
         </label>
     </div>
 

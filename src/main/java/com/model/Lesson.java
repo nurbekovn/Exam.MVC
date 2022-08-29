@@ -34,6 +34,9 @@ public class Lesson {
     @OneToMany(cascade = ALL,mappedBy = "lesson",fetch = FetchType.EAGER)
     private List<Task> tasks;
 
+    public void addVideo(Video video) {
+        System.out.println(video);
+    }
 
     public void addTask(Task task) {
         if (tasks==null) {
@@ -43,12 +46,4 @@ public class Lesson {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Lesson{" +
-                "id=" + id +
-                ", lessonName='" + lessonName + '\'' +
-                ", video=" + video +
-                '}';
-    }
 }
