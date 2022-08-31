@@ -23,6 +23,13 @@
             border: 1px solid #462d2d;
             padding: 3px;
         }
+        body{
+            background-image: url("https://umi.ru/images/cms/data/blog/17-vidoe-to-computer.jpg");
+        }
+        .mainButton{
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -68,6 +75,10 @@
     <a th:href="@{/videos/{id}/addVideo(id=${id})}">
         <button style="font-size: 30px;"> Add Video </button> </a>
 </div>
+<br>
+<a class="mainButton" th:href="@{/companies}">
+    <button type="button" class="btn btn-primary btn-sm"> Main </button>
+</a>
 
 </body>
 </html>

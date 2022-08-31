@@ -55,6 +55,7 @@
         <th scope="col">Located country</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
+        <th scope="col">Info</th>
     </tr>
     </thead>
     <tbody class="table-success">
@@ -64,7 +65,7 @@
         <td th:text="${company.locatedCountry}"></td>
 
         <td><a th:href="@{/companies/edit/{id}(id=${company.getId()})}">
-            <button style="height: 45px; width: 80px; background-color:blue;">Update</button>
+            <button style="height: 45px; width: 90px; background-color:blue;">Update</button>
         </a>
         </td>
         <td>

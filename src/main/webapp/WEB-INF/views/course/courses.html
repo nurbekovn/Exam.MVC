@@ -23,11 +23,23 @@
             border: 1px solid #1e1818;
             padding: 3px;
         }
+        body{
+            background-image: url("https://img.freepik.com/free-vector/dark-wall-background_1390-191.jpg");
+        }
+        .courseMain {
+            background-color: #66c487;
+        }
+        .mainButton{
+            display: flex;
+            justify-content: center;
+        }
     </style>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
           crossorigin="anonymous">
+
+
 </head>
 <body>
 
@@ -35,7 +47,7 @@
 
 <table class="table table-bordered ">
     <thead class="table-dark">
-    <tr>
+    <tr class="courseMain">
         <th scope="col">Id</th>
         <th scope="col">Course name</th>
         <th scope="col">duration</th>
@@ -61,12 +73,12 @@
         <td th:text="${course.image}"></td>
 
         <td><a th:href="@{/lessons/lessons/{id}(id=${course.id})}">
-            <button style="height: 40px; width: 90px; background-color:paleturquoise;">MORE</button>
+            <button style="height: 40px; width: 90px; background-color:#317dee;">MORE</button>
         </a>
         </td>
 
         <td><a th:href="@{/students/students/{id}(id=${student.id})}">
-            <button style="height: 40px; width: 90px; background-color:paleturquoise;">Students</button>
+            <button style="height: 40px; width: 105px; background-color:#94ee7d;">Students</button>
         </a>
         </td>
 
@@ -90,7 +102,7 @@
                             th:value="${instructor.id}"
                             th:text="${instructor.firstName}"></option>
                 </select>
-                <input type="submit" value="submit"/>
+                <input  type="submit" value="submit"/>
             </form>
         </td>
     </tr>
@@ -104,8 +116,11 @@
     </a>
 
 </div>
-<!--    <button th:href="@{/company/companies/{id}/companies(id=${companyId})}"> Main</button>-->
 
+<br>
+<a class="mainButton" th:href="@{/companies}">
+    <button type="button" class="btn btn-primary btn-sm"> Main </button>
+</a>
 
 <table class="table table-bordered ">
     <thead class="table-white">
@@ -132,13 +147,13 @@
 
         <td>
             <a th:href="@{/instructors/edit/{id}(id=${instructor.getId()})}">
-                <button style="height: 35px; width: 85px; background-color:#312929;">Update</button>
+                <button style="height: 35px; width: 90px; background-color:#317dee;">Update</button>
             </a>
         </td>
         <td>
             <form th:method="DELETE"
                   th:action="@{/instructors/{id}/{companyId}(id=${instructor.getId()},companyId=${companyId})}">
-                <button style="height: 35px; width: 80px; background-color:#746a6a;">delete</button>
+                <button style="height: 35px; width: 80px; background-color:#e3aa43;">delete</button>
             </form>
         </td>
     </tr>
@@ -148,56 +163,10 @@
 <br><br><br><br>
 <div style="text-align:center; ">
     <a th:href="@{/instructors/{id}/addIns(id=${companyId})}">
-        <button style="font-size:30px; color: #2d2023">Add instructor</button>
+        <button style="font-size:30px; color: #0d0103">Add Instructor</button>
     </a></div>
 
 
-<table class="table table-bordered ">
-    <thead class="table-white">
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Student name</th>
-        <th scope="col">Last name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone number</th>
-        <th scope="col">Study format</th>
-        <th scope="col">Update</th>
-        <th scope="col">Delete</th>
-    </tr>
-    </thead>
-
-    <tbody class="table-success">
-    <tr th:each="student : ${students}">
-        <td th:text="${student.id}"></td>
-        <td th:text="${student.firstName}"></td>
-        <td th:text="${student.lastName}"></td>
-        <td th:text="${student.email}"></td>
-        <td th:number="${student.phoneNumber}"></td>
-        <td th:text="${student.studyFormat}"></td>
-        <td>
-
-
-            <a th:href="@{/students/edit/{id}(id=${student.getId()})}">
-                <button style="height: 40px; width: 90px; background-color:rosybrown;">Update</button>
-            </a>
-        </td>
-        <td>
-            <form th:method="DELETE"
-                  th:action="@{/students/{id}/{companyId}(id=${student.getId()},companyId=${companyId})}">
-                <button style="height: 40px; width: 80px; background-color: aqua;">delete</button>
-            </form>
-        </td>
-    </tr>
-
-    </tbody>
-</table>
-<br><br><br><br>
-<div style="text-align:center; ">
-    <a th:href="@{/students/{id}/addStudent(id=${companyId})}">
-        <button style="font-size:30px;">Add Student</button>
-    </a></div>
-
-<!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>

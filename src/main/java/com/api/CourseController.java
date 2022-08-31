@@ -44,8 +44,6 @@ public class CourseController {
         model.addAttribute("instructors", instructors);
         model.addAttribute("students", studentService.getStudents(id));
 
-//        List<Course> courses = courseService.getAllCourses(id);
-//        model.addAttribute("courses",courses);
         System.out.println("~~~~~~~~~~~  METHOD  all courses done  ~~~~~~~~~~~");
         return "course/courses";
     }

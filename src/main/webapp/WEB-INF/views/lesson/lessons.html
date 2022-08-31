@@ -23,7 +23,16 @@
             border: 1px solid #462d2d;
             padding: 3px;
         }
+        body{
+            background-image: url("https://1.bp.blogspot.com/-_B1NQqcUjG4/X58l93-TU-I/AAAAAAAAIAc/D464CPe7jjEm0XrZ7HNSNE8CsUPE2GBfQCLcBGAsYHQ/s960/background-ppt-white-shades.jpg");
+        }
+
+        .mainButton{
+            display: flex;
+            justify-content: center;
+        }
     </style>
+
 </head>
 <body>
 
@@ -78,7 +87,10 @@
     <a th:href="@{/lessons/{id}/addLesson(id=${courseId})}">
         <button style="font-size: 30px;"> Add Lesson </button> </a>
 </div>
-
+ <br>
+<a class="mainButton" th:href="@{/companies}">
+    <button type="button" class="btn btn-primary btn-sm"> Main </button>
+</a>
 
 
 <!--<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add Course"-->

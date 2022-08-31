@@ -23,6 +23,17 @@
             border: 1px solid #1e1818;
             padding: 3px;
         }
+        body{
+            background-image: url("https://img.freepik.com/free-vector/white-abstract-wallpaper_23-2148830026.jpg?w=2000");
+        }
+        .addStud{
+            display: flex;
+            justify-content: center;
+        }
+        .mainButton{
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -34,8 +45,8 @@
         <th scope="col">Student firstName</th>
         <th scope="col">LastName</th>
         <th scope="col">Email</th>
-        <th scope="col">PhoneNumber</th>
         <th scope="col">StudyFormat</th>
+        <th scope="col">PhoneNumber</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
         <th scope="col">Assign</th>
@@ -70,10 +81,6 @@
                 <input type="submit" value="Delete" style="height: 40px; width: 80px; background-color:darkorange;"/>
             </form>
         </td>
-    </tr>
-    </tbody>
-
-
 <td>
     <form th:method="POST"
           th:action="@{/students/{companyId}/{studentId}/assign(studentId=${student.getId()},companyId=${companyId})}">
@@ -83,29 +90,20 @@
                     th:value="${course.id}"
                     th:text="${course.courseName}"></option>
         </select>
-        <button type="submit" value="assign" style="height: 30px; width: 60px; background: chartreuse;"></button>
-
-        <div style="text-align:center; ">
-            <a th:href="@{/students/{id}/addStudent(id=${companyId})}">
-                <button style="font-size:30px;">Add Student</button>
-            </a></div>
-
+        <button type="submit" value="assign" style="height: 30px; width: 60px; background: #171c13;"></button>
     </form>
-</td>
 
+    </tr>
+    </tbody>
 </table>
 
-<div style="text-align: center">
-    <a th:href="@{/lessons/{id}/addLesson(id=${companyId})}">
-        <button > Add Lesson </button> </a>
-</div>
-
-<!--<div>-->
-<!--    <a th:href="@{/students/{id}/addStudent(id=${companyId})}">-->
-<!--        <input type="submit"  value="add" style="font-size:30px; background:white;"></input>-->
-<!--    </a>-->
-<!--</div>-->
-
+<a class="addStud" th:href="@{/students/{id}/addStudent(id=${companyId})}">
+    <button  value="Add Student" style="height: 40px; width: 60px; background: #337dab">Add Student</button>
+</a>
+<br>
+<a class="mainButton" th:href="@{/companies}">
+    <button type="button" class="btn btn-primary btn-sm"> Main </button>
+</a>
 
 </body>
 </html>

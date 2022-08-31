@@ -23,6 +23,13 @@
             border: 1px solid #462d2d;
             padding: 3px;
         }
+        body{
+            background-image: url("https://media.istockphoto.com/vectors/grey-and-white-geometric-triangles-backgorund-vector-id1007122208?k=20&m=1007122208&s=612x612&w=0&h=xtfBDBIDKCWeJmC3vFQbJT-idW1FTXbYcBCmIrtrY20=");
+        }
+        .mainButton{
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -71,6 +78,9 @@
     <a th:href="@{/tasks/{lessonId}/addTask(lessonId=${lid})}">
         <button style="font-size: 30px;"> Add Task </button> </a>
 </div>
-
+<br>
+<a class="mainButton" th:href="@{/companies}">
+    <button type="button" class="btn btn-primary btn-sm"> Main </button>
+</a>
 </body>
 </html>
