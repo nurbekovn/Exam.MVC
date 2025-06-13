@@ -1,99 +1,72 @@
 package com.api;
 
-import com.model.Company;
-import com.model.Course;
-import com.model.Student;
-import com.service.CompanyService;
-import com.service.CourseService;
-import com.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
+import com.model.Student;
+import com.service.StudentService;
 
 @Controller
 @RequestMapping("/students")
+@RequiredArgsConstructor
 public class StudentController {
 
     private final StudentService studentService;
-    private final CourseService courseService;
-    private final CompanyService companyService;
 
-    @Autowired
-    public StudentController(StudentService studentService, CourseService courseService, CompanyService companyService) {
-        this.studentService = studentService;
-        this.courseService = courseService;
-        this.companyService = companyService;
+    @GetMapping("/{id}")
+    public String getAllStudents(@PathVariable Long id, Model model, @ModelAttribute("student") Student student) {
+        model.addAttribute("students", studentService.countOfStudents(id));
+        model.addAttribute("courseId", id);
+        return "/students";
     }
-
-    @GetMapping("/students/{id}")
-    private String getAllStudents(@PathVariable Long id, Model model,
-                                  @ModelAttribute("course") Course course) {
-        model.addAttribute("students", studentService.getStudents(id));
-        model.addAttribute("companyId", id);
-        Company company = companyService.getCompanyById(id);
-        model.addAttribute("company", company);
-        model.addAttribute("courses", id);
-        model.addAttribute("student", studentService.getStudentById(id));
-        model.addAttribute("allCourses", courseService.getAllCourses(id));
-        return "student/students";
-    }
-
 
     @GetMapping("/{id}/addStudent")
-    private String addStudent(@PathVariable Long id, Model model) {
+    public String addStudent(@PathVariable Long id, Model model) {
         model.addAttribute("student", new Student());
-        model.addAttribute("companyId", id);
-        return "student/addStudent";
+        model.addAttribute("courseId", id);
+        return "/addStudent";
     }
 
-    @PostMapping("/{id}/saveStudent")
-    private String saveStudent(@ModelAttribute("student") Student student,
-                               @PathVariable Long id) {
+    @PostMapping("/{id}/save")
+    public String saveStudent(@PathVariable Long id, @ModelAttribute("student") @Valid Student student,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/addStudent";
+        }
         studentService.saveStudent(student, id);
-        return "redirect:/students/students/ " + id;
+        return "redirect:/students/" + id;
     }
 
-    @GetMapping("/edit/{id}")
-    private String updateStudent(@PathVariable("id") Long id, Model model) {
-        Student student = studentService.getStudentById(id);
-        model.addAttribute("student", student);
-        model.addAttribute("companyId", student.getCompany().getId());
-        return "/student/updateStudent";
+    @GetMapping("/{courseId}/{studentId}/edit")
+    public String updateStudent(@PathVariable Long courseId, @PathVariable Long studentId, Model model) {
+        model.addAttribute("student", studentService.getStudentById(studentId));
+        model.addAttribute("courseId", courseId);
+        return "/updateStudent";
     }
 
-    @PostMapping("/{companyId}/{studentId}/updateStudent")
-    private String saveUpdateStudent(@PathVariable("studentId") Long studentId,
-                                     @PathVariable("companyId") Long id,
-                                     @ModelAttribute("student") Student student) {
+    @PostMapping("/{id}/{studentId}/update")
+    public String saveUpdateStudent(@PathVariable Long id, @PathVariable Long studentId,
+                                    @ModelAttribute("student") @Valid Student student,
+                                    BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/updateStudent";
+        }
         studentService.updateStudent(studentId, student);
-        return "redirect:/students/students/ " + id;
+        return "redirect:/students/" + id;
     }
 
-
-    @PostMapping("/{id}/{companyId}")
-    private String deleteStudent(@PathVariable("id") Long id,
-                                 @PathVariable("companyId") Long companyId) {
-        studentService.deleteStudent(id);
-        return "redirect:/students/students/ " + companyId;
+    @PostMapping("/{courseId}/{studentId}/delete")
+    public String deleteStudent(@PathVariable Long courseId, @PathVariable Long studentId) {
+        studentService.deleteStudent(studentId);
+        return "redirect:/students/" + courseId;
     }
 
-
-    @PostMapping("/{companyId}/{studentId}/assign")
-    private String assign(@PathVariable("studentId") Long id,
-                          @PathVariable("companyId") Long companyId,
-                          @ModelAttribute("course") Course course) {
-        studentService.assignStudentToCourse(id, course.getId());
-        return "redirect:/students/students/ " + companyId;
-    }
-
-    @GetMapping("/countOfStudents/{companyId}")
-    private String countOfStudents(@PathVariable("companyId")Long id,Model model) {
-        List<Student> students = studentService.countOfStudents(id);
-        model.addAttribute("students",students.size());
-        return "student/students";
+    @PostMapping("/{courseId}/{studentId}/assign")
+    public String assignStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+        studentService.assignStudentToCourse(courseId, studentId);
+        return "redirect:/students/" + courseId;
     }
 }

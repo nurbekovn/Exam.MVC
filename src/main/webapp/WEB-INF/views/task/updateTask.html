@@ -1,38 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Update Task</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #1a1a2e, #16213e);
+            color: white;
+        }
+        .glass {
+            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        .neon-input:focus {
+            box-shadow: 0 0 12px #00ffe1;
+            border-color: #00ffe1;
+        }
+        .neon-button {
+            background: linear-gradient(to right, #00ffe1, #007bff);
+            color: white;
+            box-shadow: 0 0 12px #00ffe1;
+            transition: transform 0.2s ease;
+        }
+        .neon-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
-<body>
+<body class="flex justify-center items-center min-h-screen px-4">
 
+<div class="w-full max-w-xl p-10 glass">
+    <h2 class="text-3xl font-bold mb-6 text-center text-cyan-300">Update Task</h2>
 
-<form th:action="@{/tasks/{id}/{taskId}/update(id=${lessonIdT},taskId=${task.getId()})}"
-      th:object="${task}"
-      th:method="POST">
-    <div>
-        <label>
-            <input th:field="*{taskName}" placeholder="Task Name">
-        </label>
-    </div>
+    <form th:action="@{/tasks/{id}/{taskId}/update(id=${lessonIdT},taskId=${task.getId()})}"
+          th:object="${task}" th:method="POST" class="space-y-5">
 
-    <div>
-        <label>
-            <input th:field="*{taskText}" placeholder="Text">
-        </label>
-    </div>
+        <div>
+            <label class="block mb-1 text-sm">Task Name</label>
+            <input type="text" th:field="*{taskName}" placeholder="Task Name"
+                   class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-500 neon-input focus:outline-none">
+        </div>
 
-    <div>
-        <label>
-            <input type="date"  name="dateOfStart" th:field="*{deadline}" placeholder="Deadline">
+        <div>
+            <label class="block mb-1 text-sm">Task Text</label>
+            <input type="text" th:field="*{taskText}" placeholder="Text"
+                   class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-500 neon-input focus:outline-none">
+        </div>
 
-        </label>
-    </div>
+        <div>
+            <label class="block mb-1 text-sm">Deadline</label>
+            <input type="date" th:field="*{deadline}" class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-500 neon-input focus:outline-none">
+        </div>
 
-    <div>
-        <input type="submit" value="update task">
-    </div>
-</form>
+        <div class="text-center pt-4">
+            <input type="submit" value="Update Task"
+                   class="neon-button px-6 py-3 rounded-full text-lg font-semibold cursor-pointer"/>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>

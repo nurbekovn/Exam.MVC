@@ -1,139 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <!-- 1. Используем Spring Boot Parent для управления версиями зависимостей -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <!-- Используйте актуальную стабильную версию Spring Boot 2.x, совместимую с Java 8 -->
+    <!-- Например, 2.7.18 (последняя основная версия ветки 2.x) или другую подходящую -->
+    <version>2.7.18</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
 
   <groupId>org.example</groupId>
   <artifactId>Exam.MVC</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>war</packaging> <!-- Оставляем WAR, так как вы деплоите на внешний Tomcat -->
 
   <name>Exam.MVC Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <spring.version>5.3.22</spring.version>
+    <!-- Spring Boot Parent уже установит java.version, но можно переопределить, если нужно -->
+    <java.version>1.8</java.version>
   </properties>
 
-
-
   <dependencies>
+    <!-- 2. Spring Boot Starters - они притянут нужные версии Spring Framework, Hibernate, Thymeleaf и др. -->
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-dbcp2</artifactId>
-      <version>2.1.1</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId> <!-- Для Jakarta Bean Validation -->
     </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf-spring5</artifactId>
-      <version>3.0.15.RELEASE</version>
-    </dependency>
-
+    <!-- 3. Драйвер базы данных -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.3.6</version>
+      <!-- Версия будет управляться Spring Boot, если возможно, или можно указать явно -->
     </dependency>
 
+    <!-- 4. Для развертывания WAR на внешнем Tomcat -->
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>4.0.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>5.6.5.Final</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope> <!-- Важно! Говорит Maven не включать Tomcat в WAR -->
     </dependency>
 
+    <!-- 5. Lombok (если используете) -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.24</version>
-      <scope>compile</scope>
+      <optional>true</optional> <!-- Lombok нужен на этапе компиляции, но не обязательно в runtime -->
     </dependency>
 
+    <!-- 6. Commons DBCP2 (если вы ТОЧНО хотите его использовать вместо HikariCP по умолчанию в Spring Boot) -->
+    <!-- Если вы не настраивали его специально, его можно удалить, Spring Boot использует HikariCP -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <!-- Версия 2.1.1 очень старая. Spring Boot Parent может предложить более новую. -->
+      <!-- Если оставляете, убедитесь в совместимости или позвольте Boot управлять версией. -->
+    </dependency>
+
+    <!-- ЗАВИСИМОСТИ, КОТОРЫЕ БЫЛИ УДАЛЕНЫ или заменены (для информации):
+    <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>jakarta.validation</groupId>
+        <artifactId>jakarta.validation-api</artifactId>
+    </dependency>
+    -->
+    <!-- Эти (и другие ниже) зависимости Spring Framework теперь управляются spring-boot-starters:
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.thymeleaf</groupId>
+        <artifactId>thymeleaf-spring5</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+    </dependency>
+    -->
+
+    <!-- Тестовая зависимость -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- JUnit 5 (через starter-test) предпочтительнее JUnit 4, но если есть тесты на JUnit 4, их можно оставить
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <scope>test</scope>
+    </dependency>
+    -->
   </dependencies>
 
   <build>
-    <finalName>Exam.MVC</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>3.2.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+    <!-- Имя финального WAR файла. Ваш Tomcat ожидает /Exam_MVC_war, значит имя должно быть Exam_MVC_war.war -->
+    <!-- Если вы хотите, чтобы URL был /Exam.MVC, то finalName должен быть Exam.MVC -->
+    <!-- Tomcat использует имя файла (без .war) как context path по умолчанию -->
+    <finalName>ROOT</finalName>
+    <!-- ИЗМЕНИТЕ НА Exam.MVC, если путь должен быть /Exam.MVC -->
     <plugins>
+      <!-- Spring Boot Maven Plugin - важен для сборки Spring Boot приложений -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>8</source>
-          <target>8</target>
-        </configuration>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+      <!-- maven-war-plugin настраивается Spring Boot для правильной сборки WAR -->
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version> <!-- Можно использовать версию, управляемую Boot, или указать явно -->
+      </plugin>
+      <!-- maven-compiler-plugin будет настроен через <java.version> в properties -->
     </plugins>
   </build>
 </project>

@@ -4,11 +4,12 @@ import com.repository.CompanyRepository;
 import com.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Repository
+@Service
 @Transactional
 public class CompanyServiceImpl implements CompanyService {
 
@@ -36,7 +37,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<Company> getAllCompanies(Long id) {
+    public List<Company> getAllCompanies() {
         return companyRepository.getAllCompanies();
     }
 

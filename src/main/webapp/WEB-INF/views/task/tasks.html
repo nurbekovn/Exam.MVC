@@ -2,85 +2,92 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Videos</title>
-    <style>table,
-    td {
-        border: 1px solid #333;
-        margin-top: 200px;
-        margin-left: auto;
-        margin-right: auto;
-        font-size: 25px;
-    }
-
-    thead,
-    tfoot {
-        background-color: #e8e5e5;
-        color: #344712;
-    }
-    </style>
+    <title>Tasks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        table, th, td {
-            border: 1px solid #462d2d;
-            padding: 3px;
+        body {
+            background: linear-gradient(to right, #1a1a2e, #16213e);
+            color: white;
         }
-        body{
-            background-image: url("https://media.istockphoto.com/vectors/grey-and-white-geometric-triangles-backgorund-vector-id1007122208?k=20&m=1007122208&s=612x612&w=0&h=xtfBDBIDKCWeJmC3vFQbJT-idW1FTXbYcBCmIrtrY20=");
+        .glass {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
-        .mainButton{
-            display: flex;
-            justify-content: center;
+        .btn-action {
+            @apply text-white px-4 py-2 text-sm rounded font-semibold transition;
+        }
+        .neon-button {
+            background: linear-gradient(to right, #00ffe1, #007bff);
+            color: white;
+            box-shadow: 0 0 10px #00ffe1;
+            transition: transform 0.2s ease;
+        }
+        .neon-button:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
-<body>
+<body class="p-6">
 
-<table class="table table-bordered ">
-    <thead class="table-dark">
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Task name</th>
-        <th scope="col">Text</th>
-        <th scope="col">Deadline</th>
-        <th scope="col">-lesson-</th>
-        <th scope="col">Update</th>
-        <th scope="col">Delete</th>
-        <th scope="col"></th>
+<h2 class="text-3xl font-bold text-center text-cyan-300 my-6">Tasks</h2>
 
-    </tr>
-    </thead>
-    <tbody class="table-success">
+<div class="overflow-x-auto glass p-6">
+    <table class="min-w-full text-sm text-center">
+        <thead class="uppercase bg-gray-800 text-gray-300 text-xs">
+        <tr>
+            <th class="px-4 py-2">Id</th>
+            <th class="px-4 py-2">Task name</th>
+            <th class="px-4 py-2">Text</th>
+            <th class="px-4 py-2">Deadline</th>
+            <th class="px-4 py-2">Lesson</th>
+            <th class="px-4 py-2">Update</th>
+            <th class="px-4 py-2">Delete</th>
+        </tr>
+        </thead>
+        <tbody class="text-white">
+        <tr th:each="task : ${tasks}" class="border-b border-gray-600 hover:bg-gray-800">
+            <td class="py-3" th:text="${task.id}"></td>
+            <td class="py-3" th:text="${task.taskName}"></td>
+            <td class="py-3" th:text="${task.taskText}"></td>
+            <td class="py-3" th:text="${task.deadline}"></td>
+            <td class="py-3" th:text="${task.getLesson().getLessonName()}"></td>
 
-    <tr th:each="task:${tasks}">
-        <td th:text="${task.id}"></td>
-        <td th:text="${task.taskName}"></td>
-        <td th:text="${task.taskText}"></td>
-        <td th:text="${task.deadline}"></td>
-        <td th:text="${task.getLesson().getLessonName()}"></td>
+            <td class="py-3">
+                <a th:href="@{/tasks/edit/{id}(id=${task.getId()})}">
+                    <button class="bg-blue-600 hover:bg-blue-700 btn-action">Update</button>
+                </a>
+            </td>
 
-        <td><a th:href="@{/tasks/edit/{id}(id=${task.getId()})}">
-            <button style="height: 40px; width: 80px; background-color:blue;">Update</button>
-        </a>
-        </td>
-
-        <td>
-            <form th:method="DELETE" th:action="@{/tasks/{lid}/{taskId}/delete (lid=${lid},taskId = ${task.getId()})}">
-                <input type="submit" value="delete" style="height: 40px; width: 80px; background-color:#abd21e;"/>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<br><br><br><br>
-
-
-<div style="text-align: center">
-
-    <a th:href="@{/tasks/{lessonId}/addTask(lessonId=${lid})}">
-        <button style="font-size: 30px;"> Add Task </button> </a>
+            <td class="py-3">
+                <form th:method="DELETE"
+                      th:action="@{/tasks/{lid}/{taskId}/delete (lid=${lid},taskId=${task.getId()})}">
+                    <input type="submit" value="Delete"
+                           class="bg-yellow-500 hover:bg-yellow-600 btn-action cursor-pointer"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<br>
-<a class="mainButton" th:href="@{/companies}">
-    <button type="button" class="btn btn-primary btn-sm"> Main </button>
-</a>
+
+<!-- Add Task Button -->
+<div class="text-center mt-10">
+    <a th:href="@{/tasks/{lessonId}/addTask(lessonId=${lid})}">
+        <button class="text-xl px-8 py-4 neon-button rounded-full font-semibold">+ Add Task</button>
+    </a>
+</div>
+
+<!-- Main Button -->
+<div class="text-center mt-4">
+    <a th:href="@{/companies}">
+        <button type="button"
+                class="text-xl px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full transition">
+            Main
+        </button>
+    </a>
+</div>
+
 </body>
 </html>

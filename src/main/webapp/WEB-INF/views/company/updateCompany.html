@@ -1,26 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update</title>
+    <title>Update Company</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(circle at top left, #0f0f0f, #000000);
+        }
+        .glass-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+        .neon-input:focus {
+            box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+            border-color: #00ffcc;
+        }
+        .neon-button {
+            background: linear-gradient(90deg, #00ffcc, #0066ff);
+            box-shadow: 0 0 15px #00ffcc, 0 0 30px #0066ff;
+            transition: transform 0.3s ease-in-out;
+        }
+        .neon-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
-<body>
-<form th:action="@{/companies/{id}/update (id=${company.getId()})}"
-      th:object="${company}"
-      th:method="PATCH">
-    <div>
-        <label>
-            <input th:field="*{companyName}" placeholder="Company Name">
-        </label></div>
-    <div>
-        <label>
-            <input th:field="*{locatedCountry}" placeholder="Located Country">
-        </label>
-    </div>
-    <div>
-        <input type="submit" value="update">
-    </div>
-</form>
+<body class="min-h-screen flex items-center justify-center text-white">
+
+<div class="w-full max-w-md p-10 rounded-3xl glass-card">
+    <h2 class="text-4xl font-bold text-center mb-8 tracking-wide">Update Company</h2>
+
+    <form
+            th:action="@{/companies/{id}/update(id=${company.getId()})}"
+            th:object="${company}"
+            th:method="PATCH">
+
+        <div>
+            <label class="block text-sm mb-1">Company Name</label>
+            <input type="text" th:field="*{companyName}" placeholder="Company Name"
+                   class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-600 neon-input focus:outline-none">
+        </div>
+
+        <div class="mt-4">
+            <label class="block text-sm mb-1">Country</label>
+            <input type="text" th:field="*{locatedCountry}" placeholder="Located Country"
+                   class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-600 neon-input focus:outline-none">
+        </div>
+
+        <div class="pt-6 text-center">
+            <button type="submit"
+                    class="w-full py-3 text-lg font-semibold rounded-full neon-button">
+                Update Company
+            </button>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>

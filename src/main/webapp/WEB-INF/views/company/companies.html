@@ -1,97 +1,101 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Companies</title>
-    <style>table,
-    td {border: 1px solid #333;margin-top: 200px;margin-left: auto;margin-right: auto;font-size: 25px;}
-    thead, tfoot {background-color: #337dab;color: #344712;
-        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX63729dTpoFWQVn9teKQvqzv0_ZF-0w_V8Tujl-R65Q&s");
-    }</style><style>
-        table, th, td {border: 1px solid #1e1818; padding: 3px;} </style>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-          crossorigin="anonymous">
-
-<style>
-    .text{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #f7a106;
-        font-size: 20px;
-        width: 450px;
-        margin-left: 33%;
-
-    }
-
-    body {
-        background-color: #5886a4;
-    }
-    tr{
-        margin-top: -100px;
-    }
-</style>
-
-
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #1a1a2e, #16213e);
+        }
+        .glass {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .neon-button {
+            background: linear-gradient(90deg, #00ffcc, #0066ff);
+            color: white;
+            box-shadow: 0 0 10px #00ffcc, 0 0 20px #0066ff;
+            transition: transform 0.3s ease;
+        }
+        .neon-button:hover {
+            transform: scale(1.05);
+        }
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+    </style>
 </head>
-<body>
+<body class="text-white">
 
-<div class="text-center">
-    <img src="https://i0.wp.com/www.iedunote.com/img/23559/what-is-a-company.jpg?resize=300%2C199&quality=100&ssl=1" class="rounded" alt="photo company">
+<!-- Header -->
+<header class="text-center py-6">
+    <h1 class="text-2xl font-semibold text-blue-300">Welcome to NURBEKOV COMPANY</h1>
+</header>
+
+<!-- Table -->
+<div class="container mx-auto px-4">
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-sm text-center glass rounded-lg">
+            <thead class="bg-gray-800 text-gray-200 uppercase text-xs">
+            <tr>
+                <th class="px-6 py-3">ID</th>
+                <th class="px-6 py-3">Company name</th>
+                <th class="px-6 py-3">Located country</th>
+                <th class="px-6 py-3">Update</th>
+                <th class="px-6 py-3">Delete</th>
+                <th class="px-6 py-3">Info</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="company : ${companies}" class="bg-gray-900 hover:bg-gray-800 border-b border-gray-700">
+                <td class="px-6 py-4" th:text="${company.id}"></td>
+                <td class="px-6 py-4" th:text="${company.companyName}"></td>
+                <td class="px-6 py-4" th:text="${company.locatedCountry}"></td>
+
+                <td class="px-6 py-4">
+                    <form th:action="@{/companies/edit/{id}(id=${company.id})}" method="get">
+                        <button class="px-4 py-2 rounded neon-button">Update</button>
+                    </form>
+                </td>
+
+                <td class="px-6 py-4">
+                    <form th:action="@{/companies/{id}(id=${company.id})}" method="post">
+                        <button type="submit" class="px-4 py-2 rounded bg-red-500 hover:bg-red-700 transition">Delete</button>
+                    </form>
+                </td>
+
+                <td class="px-6 py-4">
+                    <form th:action="@{/courses/courses/{id}(id=${company.id})}" method="get">
+                        <button class="px-4 py-2 rounded bg-cyan-500 hover:bg-cyan-600 transition">
+                            Info
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<div class="text">
-<p class="text-warning bg-dark"> <p> Welcome to NURBEKOV COMPANY</p>
+
+<!-- Add Company Button -->
+<div class="flex justify-center mt-10 mb-6">
+    <a href="/companies/addCompany"
+       class="px-6 py-2 rounded-full font-semibold neon-button text-white">
+        + Add Company
+    </a>
 </div>
 
-<table class="table table-bordered ">
-    <thead class="table-dark">
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Company name</th>
-        <th scope="col">Located country</th>
-        <th scope="col">Update</th>
-        <th scope="col">Delete</th>
-        <th scope="col">Info</th>
-    </tr>
-    </thead>
-    <tbody class="table-success">
-    <tr th:each="company:${companies}">
-        <td th:text="${company.getId()}"></td>
-        <td th:text="${company.companyName}"></td>
-        <td th:text="${company.locatedCountry}"></td>
+<!-- Footer -->
+<footer>
+   Bishkek, Kyrgyzstan | +996 700 123 456 | <a href="https://instagram.com/nurbekov.company" target="_blank" class="underline text-blue-400">Instagram</a>
+</footer>
 
-        <td><a th:href="@{/companies/edit/{id}(id=${company.getId()})}">
-            <button style="height: 45px; width: 90px; background-color:blue;">Update</button>
-        </a>
-        </td>
-        <td>
-
-            <form th:method="DELETE" th:action="@{/companies/{id}(id=${company.getId()})}">
-                <input type="submit" value="Delete" style="height: 40px; width: 80px; background-color:darkorange;"/>
-            </form>
-        </td>
-
-        <td><a th:href="@{/courses/courses/{id}(id=${company.id})}">
-            <button style="height: 40px; width: 90px; background-color:paleturquoise;">Info</button>
-        </a>
-        </td>
-
-
-    </tr>
-    </tbody>
-</table>
-
-<br><br><br><br>
-<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add company"
-       onclick="window.location.href = 'companies/addCompany'">
-
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous"></script>
 </body>
 </html>

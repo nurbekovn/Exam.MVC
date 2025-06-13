@@ -3,98 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <title>Lessons</title>
-    <style>table,
-    td {
-        border: 1px solid #333;
-        margin-top: 200px;
-        margin-left: auto;
-        margin-right: auto;
-        font-size: 25px;
-    }
-
-    thead,
-    tfoot {
-        background-color: #e8e5e5;
-        color: #344712;
-    }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        table, th, td {
-            border: 1px solid #462d2d;
-            padding: 3px;
+        body {
+            background: linear-gradient(to right, #1a1a2e, #16213e);
         }
-        body{
-            background-image: url("https://1.bp.blogspot.com/-_B1NQqcUjG4/X58l93-TU-I/AAAAAAAAIAc/D464CPe7jjEm0XrZ7HNSNE8CsUPE2GBfQCLcBGAsYHQ/s960/background-ppt-white-shades.jpg");
+        .glass {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
         }
-
-        .mainButton{
-            display: flex;
-            justify-content: center;
+        .neon-button {
+            background: linear-gradient(90deg, #00ffcc, #0066ff);
+            color: white;
+            box-shadow: 0 0 10px #00ffcc, 0 0 20px #0066ff;
+            transition: transform 0.3s ease;
+        }
+        .neon-button:hover {
+            transform: scale(1.05);
         }
     </style>
-
 </head>
-<body>
+<body class="text-white p-10">
 
-<table class="table table-bordered ">
-    <thead class="table-dark">
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Lesson name</th>
-        <th scope="col">Course name</th>
-        <th scope="col">Update</th>
-        <th scope="col">Delete</th>
-        <th scope="col">Video</th>
-        <th scope="col">Task</th>
+<!-- Заголовок -->
+<h2 class="text-center text-3xl font-bold text-cyan-300 mb-8">Lessons</h2>
 
-    </tr>
-    </thead>
-    <tbody class="table-success">
-    <!--    //changed , foreach -->
-    <tr th:each="lesson:${lessons}">
-        <td th:text="${lesson.id}"></td>
-        <td th:text="${lesson.lessonName}"></td>
-        <td th:text="${lesson.getCourse().getCourseName()}"></td>
+<!-- Таблица -->
+<div class="overflow-x-auto glass p-6 mb-10">
+    <table class="min-w-full text-center text-sm">
+        <thead class="text-xs uppercase bg-gray-800 text-gray-300">
+        <tr>
+            <th class="px-4 py-2">Lesson Name</th>
+            <th class="px-4 py-2">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lesson : ${lessons}" class="border-b border-gray-700 hover:bg-gray-800">
+            <td class="py-3" th:text="${lesson.lessonName}">Sample Lesson</td>
+            <td class="flex flex-wrap gap-2 justify-center py-3">
 
+                <a th:href="@{/lessons/edit/{id}(id=${lesson.getId()})}">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-lg px-5 py-2.5 rounded font-semibold transition">
+                        Update
+                    </button>
+                </a>
 
-        <td><a th:href="@{/lessons/edit/{id}(id=${lesson.getId()})}">
-            <button style="height: 40px; width: 80px; background-color:blue;">Update</button>
-        </a>
-        </td>
-        <td><form th:method="DELETE" th:action="@{/lessons/{courseId}/{lessonId}/delete(courseId=${courseId},lessonId=${lesson.getId()})}">
-            <input type="submit" value="Delete" style="height: 40px; width: 80px; background-color:darkorange;"/></form></td>
+                <form th:method="DELETE"
+                      th:action="@{/lessons/{courseId}/{lessonId}/delete(courseId=${courseId},lessonId=${lesson.getId()})}">
+                    <input type="submit" value="Delete"
+                           class="bg-orange-500 hover:bg-orange-600 text-lg px-5 py-2.5 rounded font-semibold transition"/>
+                </form>
 
-        <td><a th:href="@{/videos/videos/{id}(id=${lesson.getId()})}">
-            <button style="height: 40px; width: 90px; background-color:paleturquoise;">Videos</button>
-        </a>
-        </td>
+                <a th:href="@{/videos/videos/{id}(id=${lesson.getId()})}">
+                    <button class="bg-teal-400 hover:bg-teal-500 text-black text-lg px-5 py-2.5 rounded font-semibold transition">
+                        Videos
+                    </button>
+                </a>
 
-        <td><a th:href="@{/tasks/tasks/{id}(id=${lesson.getId()})}">
-            <button style="height: 40px; width: 90px; background-color:paleturquoise;">Task </button>
-        </a>
-        </td>
+                <a th:href="@{/tasks/tasks/{id}(id=${lesson.getId()})}">
+                    <button class="bg-cyan-400 hover:bg-cyan-500 text-black text-lg px-5 py-2.5 rounded font-semibold transition">
+                        Task
+                    </button>
+                </a>
 
-    </tr>
-
-
-    </tbody>
-</table>
-<br><br><br><br>
-
-
-
-<div style="text-align: center">
-    <a th:href="@{/lessons/{id}/addLesson(id=${courseId})}">
-        <button style="font-size: 30px;"> Add Lesson </button> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
- <br>
-<a class="mainButton" th:href="@{/companies}">
-    <button type="button" class="btn btn-primary btn-sm"> Main </button>
-</a>
 
+<!-- Add Lesson Button -->
+<div class="text-center mb-6">
+    <a th:href="@{/lessons/{id}/addLesson(id=${courseId})}">
+        <button class="text-xl px-8 py-4 neon-button rounded-full font-semibold">
+            + Add Lesson
+        </button>
+    </a>
+</div>
 
-<!--<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add Course"-->
-<!--       onclick="window.location.href = 'getAllCourses/addCourse'">-->
+<!-- Main Button -->
+<div class="text-center">
+    <a th:href="@{/companies}">
+        <button type="button"
+                class="text-xl px-8 py-4 rounded-full bg-blue-500 hover:bg-blue-600 transition text-white font-semibold">
+            Main
+        </button>
+    </a>
+</div>
 
 </body>
 </html>

@@ -21,8 +21,8 @@ public class CompanyController {
     }
 
     @GetMapping()
-    private String getAllCompanies(Model model,Long id) {
-        List<Company> companies = service.getAllCompanies(id);
+    private String getAllCompanies(Model model) {
+        List<Company> companies = service.getAllCompanies();
         model.addAttribute("companies", companies);
         return "company/companies";
     }

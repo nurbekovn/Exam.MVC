@@ -1,44 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Update Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+        .glass {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+        .neon-btn {
+            background: linear-gradient(to right, #00f260, #0575e6);
+            box-shadow: 0 0 10px #00f260, 0 0 20px #0575e6;
+        }
+        .neon-input:focus {
+            border-color: #00f260;
+            box-shadow: 0 0 10px #00f260, 0 0 20px #00f260;
+        }
+    </style>
 </head>
-<body>
+<body class="flex justify-center items-center min-h-screen">
 
+<div class="glass p-10 rounded-3xl w-full max-w-xl">
+    <h1 class="text-3xl font-bold text-center mb-6">Update Course</h1>
 
+    <form th:action="@{/courses/{comId}/{courseId}/update(comId=${companyId}, courseId=${course.id})}"
+          th:object="${course}"
+          th:method="PATCH">
 
-<form th:action="@{/courses/{id}/{courseId}/update (id=${companyId},courseId=${course.id})}"
-      th:object="${course}"
-      th:method="PATCH">
-    <div>
-        <label>
-            <input th:field="*{courseName}" placeholder="Course Name">
-        </label></div>
-    <div>
-        <label>
-            <input th:field="*{duration}" placeholder="Duration">
+        <input type="hidden" th:field="*{id}">
+
+        <label class="block mb-3">
+            <span class="text-sm">Course Name</span>
+            <input type="text" th:field="*{courseName}" placeholder="Course Name"
+                   class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-500 neon-input focus:outline-none">
         </label>
-    </div>
 
-    <div>
-        <label>
-            <input th:field="*{description}" placeholder="Description">
+        <label class="block mb-3">
+            <span class="text-sm">Duration (months)</span>
+            <input type="number" th:field="*{duration}" placeholder="Duration"
+                   class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-500 neon-input focus:outline-none">
         </label>
-    </div>
-    <label>
-        <input type="date"  name="dateOfStart" th:field="*{dateOfStart}" placeholder="Date Of Start">
-    </label>
-    <div>
-        <label>
-            <input th:field="*{image}" placeholder="Image">
-        </label>
-    </div>
 
-    <div>
-        <input type="submit" value="update">
-    </div>
-</form>
+        <label class="block mb-3">
+            <span class="text-sm">Description</span>
+            <input type="text" th:field="*{description}" placeholder="Description"
+                   class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-500 neon-input focus:outline-none">
+        </label>
+
+        <label class="block mb-3">
+            <span class="text-sm">Start Date</span>
+            <input type="date" th:field="*{dateOfStart}"
+                   class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-500 neon-input focus:outline-none">
+        </label>
+
+        <label class="block mb-6">
+            <span class="text-sm">Image URL</span>
+            <input type="text" th:field="*{image}" placeholder="Image URL"
+                   class="w-full px-4 py-2 rounded-lg bg-transparent border border-gray-500 neon-input focus:outline-none">
+        </label>
+
+        <button type="submit"
+                class="w-full py-3 font-semibold rounded-xl neon-btn text-white text-lg hover:scale-105 transition">
+            Update Course
+        </button>
+    </form>
+</div>
+
 </body>
 </html>
